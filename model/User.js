@@ -39,7 +39,7 @@ const userSchema = Schema({
     type:Number,
     
   },
-  defaultCredit:{type:Number},
+  defaultCredit:{type:Number,default:10},
   myHistory:{
     type:Array,
   },active:{
