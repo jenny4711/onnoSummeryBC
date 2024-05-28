@@ -8,10 +8,24 @@ const bcrypt = require('bcryptjs');
 const GOOGLE_CLIENT_ID =process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CHROME_CLIENT_ID =process.env.GOOGLE_CHROME_CLIENT_ID
 const JWT_SECRET_KEY=process.env.JWT_SECRET_KEY;
-userController.createUser = (req, res) => {
+userController.createUser = async (req, res) => {
   try{
+  const {email,firstName,lastName,picture,credit}=req.body;
+  const user = await User.findOne({email});
+if(user)throw new Error('You already Have an account')
+  const newUser = new User({
+    email,
+    firstName,
+    lastName,
+    picture,
+    credit,
+  });
+  await newUser.save();
+  res.status(200).json({status:'success',data:newUser})
 
 
+
+ 
 
   }catch(error){
     res.status(400).json({status:'fail',error:error.message})
