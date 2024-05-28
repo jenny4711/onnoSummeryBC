@@ -13,10 +13,13 @@ userController.createUser = async (req, res) => {
   const {email,firstName,lastName,picture,credit}=req.body;
   const user = await User.findOne({email});
 if(user)throw new Error('You already Have an account')
+  const randomPassword = ""+Math.floor(Math.random()*1000000000);
+const salt = await bcrypt.genSalt(10)
+const newPassword = await bcrypt.hash(randomPassword,salt)
   const newUser = new User({
     email,
-    firstName,
-    lastName,
+    fullName:firstName,
+    password:newPassword,
     picture,
     credit,
   });
