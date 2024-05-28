@@ -25,7 +25,8 @@ const newPassword = await bcrypt.hash(randomPassword,salt)
   });
   await newUser.save();
   console.log(newUser,'newUser!!')
-  res.status(200).json({status:'success',data:newUser})
+  const sessionToken = await user.generateToken();
+  res.status(200).json({status:'success',data:newUser,token:sessionToken})
 
 
 
