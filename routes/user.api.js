@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const authController=require('../controllers/auth.controller')
 const userController = require('../controllers/user.controller');
-router.post('/signup',userController.createUser)
+router.post('/signup',authController.authenticate,userController.createUser)
 router.post("/chrome",userController.authChromeSignUp);
 router.get('/tk',authController.authenticate,userController.getUser)
 router.post('/',userController.authSignUp)
