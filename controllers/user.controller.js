@@ -21,6 +21,7 @@ if(user)throw new Error('You already Have an account')
     credit,
   });
   await newUser.save();
+  console.log(newUser,'newUser!!')
   res.status(200).json({status:'success',data:newUser})
 
 
@@ -28,6 +29,7 @@ if(user)throw new Error('You already Have an account')
  
 
   }catch(error){
+    console.log(error,'createUser')
     res.status(400).json({status:'fail',error:error.message})
   }
 }
