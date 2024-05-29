@@ -7,10 +7,18 @@ const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const GOOGLE_CLIENT_ID =process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CHROME_CLIENT_ID =process.env.GOOGLE_CHROME_CLIENT_ID
+const GOOGLE_RF_CLIENT_ID =process.env.GOOGLE_RF_CLIENT_ID
 const JWT_SECRET_KEY=process.env.JWT_SECRET_KEY;
 userController.createUser = async (req, res) => {
   try{
-  const {email,firstName,lastName,picture,credit}=req.body;
+    const {firstName,lastName,picture,credit,token}=req.body;
+    const googleClient = new OAuth2Client(GOOGLE_RF_CLIENT_ID);
+    const ticket=await googleClient.verifyIdToken({
+      idToken:token,
+      audience:GOOGLE_RF_CLIENT_ID
+    });
+    const {email,name}=ticket.getPayload();
+console.log(email,'email')
   const user = await User.findOne({email});
 if(user)throw new Error('You already Have an account')
   const randomPassword = ""+Math.floor(Math.random()*1000000000);
@@ -101,13 +109,13 @@ userController.authChromeSignUp=async(req,res)=>{
     },
   });
   if(!response.ok){
-    console.log(response,'response!!!!!!!!!!!!!!!!!')
+   
     return res.status(400).json({status:'fail',error:'Invalid token'})
   }
   const data = await response.json();
-  console.log(data,'data!!!!!!!!!!!!!!!!!') 
+  
   const {email,name}=data;
-   console.log(email,'email!!!!!!!!!!!!!!!!!') 
+  
     let user = await User.findOne({email});
     if(!user) {
       const randomPassword = ""+Math.floor(Math.random()*1000000000);
@@ -126,9 +134,9 @@ userController.authChromeSignUp=async(req,res)=>{
       await user.save();
 
     }
-    console.log(user,'user!!!!!!!!!!!!!!!user')
+   
     const sessionToken = await user.generateToken();
-    console.log(sessionToken,'sessionToken')
+  
    
     res.status(200).json({status:'success',user,token:sessionToken})
 
