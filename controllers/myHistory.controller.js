@@ -8,8 +8,8 @@ myHistoryController.saveHistory=async(req,res)=>{
     const{historyId, userEmail}=req.body;
     const checkHistory = await MyHistory.findOne({historyId})
     const user = await User.findOne({email:userEmail})
-    console.log(historyId,'historyId')
-    console.log(userEmail,'userEmailmyHistorySaveHistory!!!')
+    // console.log(historyId,'historyId')
+    // console.log(userEmail,'userEmailmyHistorySaveHistory!!!')
     if (!mongoose.Types.ObjectId.isValid(historyId)) {
       return res.status(400).json({ message: 'Invalid historyId format' });
     }
@@ -47,7 +47,7 @@ myHistoryController.showMyHistory=async(req,res)=>{
 myHistoryController.deleteMyHistory=async(req,res)=>{
   try{
    const deletedItem=await MyHistory.findByIdAndDelete(req.params.id)
-   console.log(deletedItem,'deletedItem!!!!!!!!!!!!')
+  //  console.log(deletedItem,'deletedItem!!!!!!!!!!!!')
     if(!deletedItem){
       return res.status(400).json({message:'not found'})
     }
