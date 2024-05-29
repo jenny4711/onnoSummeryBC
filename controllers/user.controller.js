@@ -89,6 +89,7 @@ userController.authSignUp=async(req,res)=>{
 userController.authChromeSignUp=async(req,res)=>{
   try{
     const { fullName, picture, credit, lang, promptStyle, token } = req.body;
+    console.log(token,'token!!!!!')
   if(!token){
     return res.status(400).json({status:'fail',error:'Token is required'})
   }
