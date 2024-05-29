@@ -11,7 +11,7 @@ historyController. articleSummery=async (req,res)=>{
   try{
     const {lang,url}=req.body;
     const articleSummery = await createSummeryWithGoogle(url,lang)
-    console.log(articleSummery,'articleSummery!!!!!!!!!!!!!!!!  ')
+   
   }catch(error){
     console.log(error,'error-articleSummery')
   }
@@ -56,7 +56,7 @@ historyController.makeSummary = async (req, res) => {
 
     const existingVideo = await History.findOne({ videoId, lang, ask });
     if (existingVideo) {
-      console.log('Summary already exists, retrieving from history', videoId);
+     
       return res.status(200).json({ data: existingVideo.summary, videoId });
     }
 
@@ -71,7 +71,7 @@ historyController.makeSummary = async (req, res) => {
     }
 
     const texts = transcript.map(element => element.text);
-    console.log('Retrieved texts for summary:', texts);
+    
 
     const summaryORG = await createChatWithGoogle(texts.join(' '), ask);
     if (!summaryORG) {
