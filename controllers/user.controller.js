@@ -100,6 +100,7 @@ userController.authChromeSignUp=async(req,res)=>{
     },
   });
   if(!response.ok){
+    console.log(response,'response!!!!!!!!!!!!!!!!!')
     return res.status(400).json({status:'fail',error:'Invalid token'})
   }
   const data = await response.json();
@@ -131,6 +132,7 @@ userController.authChromeSignUp=async(req,res)=>{
     res.status(200).json({status:'success',user,token:sessionToken})
 
   }catch(error){
+    console.log(error,'errorUser!!!!!!!!!!!')
     res.status(400).json({status:'fail',error:error.message})
   }
 }
