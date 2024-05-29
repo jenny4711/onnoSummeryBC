@@ -95,7 +95,7 @@ userController.authChromeSignUp=async(req,res)=>{
   const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   });
