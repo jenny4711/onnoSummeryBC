@@ -204,6 +204,7 @@ userController.editMyRef=async(req,res)=>{
     }else{
       user.myRef.push(friend)
       await user.save();
+      console.log(user,'user!!!!!!!!!!!!!!!!!!!!')
       return res.status(200).json({message:'addRef is saved'})
     }
    
