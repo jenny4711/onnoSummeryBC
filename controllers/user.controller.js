@@ -30,7 +30,7 @@ const newPassword = await bcrypt.hash(randomPassword,salt)
     firstName:name,
     lastName:name,
     password:newPassword,
-    picture,
+    picture:"",
     credit,
   });
   await newUser.save();
