@@ -11,13 +11,14 @@ const GOOGLE_RF_CLIENT_ID =process.env.GOOGLE_RF_CLIENT_ID
 const JWT_SECRET_KEY=process.env.JWT_SECRET_KEY;
 userController.createUser = async (req, res) => {
   try{
-    const {firstName,lastName,picture,credit,token}=req.body;
+    const {credit,token}=req.body;
     const googleClient = new OAuth2Client(GOOGLE_RF_CLIENT_ID);
     const ticket=await googleClient.verifyIdToken({
       idToken:token,
       audience:GOOGLE_RF_CLIENT_ID
     });
     const {email,name}=ticket.getPayload();
+    console.log(ticket.getPayload(),'ticket')
 console.log(email,'email')
   const user = await User.findOne({email});
 if(user)throw new Error('You already Have an account')
