@@ -207,7 +207,7 @@ userController.editMyRef = async (req, res) => {
     const checkUser = await User.findOne({ email: friend });
 
     // 이미 추가된 친구인지 확인
-    if (checkUser || user.myRef.includes(friend)) {
+    if ( user.myRef.includes(friend)) {
       console.log('Friend already added:', friend);
       return res.status(400).json({ message: 'You already added it' });
     } else {
