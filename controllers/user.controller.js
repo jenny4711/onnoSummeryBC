@@ -191,7 +191,7 @@ userController.editLang = async (req, res) => {
   }
 };
 
-serController.editMyRef = async (req, res) => {
+userController.editMyRef = async (req, res) => {
   try {
     const _id = req.params.userId;
     const friend = req.params.refEmail;
