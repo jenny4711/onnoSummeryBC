@@ -27,7 +27,8 @@ const salt = await bcrypt.genSalt(10)
 const newPassword = await bcrypt.hash(randomPassword,salt)
   const newUser = new User({
     email,
-    fullName:name,
+    firstName:name,
+    lastName:name,
     password:newPassword,
     picture,
     credit,
