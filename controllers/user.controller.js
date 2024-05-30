@@ -34,7 +34,7 @@ const newPassword = await bcrypt.hash(randomPassword,salt)
     credit,
   });
   await newUser.save();
-  console.log(newUser,'newUser!!')
+  // console.log(newUser,'newUser!!')
   // const sessionToken = await user.generateToken();
   res.status(200).json({status:'success',data:newUser})
 
@@ -195,7 +195,7 @@ userController.editMyRef=async(req,res)=>{
   try{
     const _id = req.params.userId;
     const friend = req.params.refEmail;
-    console.log(_id,friend,'editMyRef'  ,friend,'friend')
+    console.log(_id,friend,'editMyRef'  ,friend,'friend!!!!!!!!!!!!!!!!!!!!!!!!!')
     const user = await User.findOne({_id})
     const checkUser = await User.findOne({email:friend})
    
@@ -209,7 +209,7 @@ userController.editMyRef=async(req,res)=>{
    
 
   }catch(error){
-    console.log(error,'editMyRef!')
+    console.log(error,'editMyRef!!!!!!!!!!!!!!!!!!!!!!!!!')
     return res.status(400).json({message:'you already added it',error})
   }
 }
