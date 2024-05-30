@@ -195,6 +195,7 @@ userController.editMyRef=async(req,res)=>{
   try{
     const _id = req.params.userId;
     const friend = req.params.refEmail;
+    console.log(_id,friend,'editMyRef'  ,friend,'friend')
     const user = await User.findOne({_id})
     const checkUser = await User.findOne({email:friend})
    
