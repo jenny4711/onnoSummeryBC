@@ -3,10 +3,10 @@ const express = require('express');
 const router = express.Router();
 const authController=require('../controllers/auth.controller')
 const userController = require('../controllers/user.controller');
-router.post('/signup',authController.authenticate,userController.createUser)
+router.post('/signup',userController.createUser)
 router.post("/chrome",userController.authChromeSignUp);
 router.get('/tk',authController.authenticate,userController.getUser)
-router.post('/',authController.authenticate,userController.authSignUp)
+router.post('/',userController.authSignUp)
 router.put('/addRef/:userId/:refEmail',userController.editMyRef)
 router.delete("/:id",userController.deleteUser)
 router.post("/subcredit",userController.subtractCredit)
