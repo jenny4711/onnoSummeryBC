@@ -8,7 +8,7 @@ const userSchema = Schema({
   password:{type:String,required:true},
   picture:{
     type:String,
-    required:true,
+    default:'none'
   },
   lastName:{
     type:String,
