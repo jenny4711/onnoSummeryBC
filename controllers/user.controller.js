@@ -1,7 +1,9 @@
 
 const userController={};
+
 require('dotenv').config();
 const axios = require('axios');
+const admin =require('../utils/firebaseAdmin');
 const {OAuth2Client} = require('google-auth-library');
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
@@ -9,6 +11,10 @@ const GOOGLE_CLIENT_ID =process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CHROME_CLIENT_ID =process.env.GOOGLE_CHROME_CLIENT_ID
 const GOOGLE_RF_CLIENT_ID =process.env.GOOGLE_RF_CLIENT_ID
 const JWT_SECRET_KEY=process.env.JWT_SECRET_KEY;
+
+
+
+
 userController.createUser = async (req, res) => {
   try{
     const {credit,token}=req.body;
@@ -34,8 +40,7 @@ const newPassword = await bcrypt.hash(randomPassword,salt)
     credit,
   });
   await newUser.save();
-  // console.log(newUser,'newUser!!')
-  // const sessionToken = await user.generateToken();
+
   res.status(200).json({status:'success',data:newUser,email})
 
 
@@ -64,12 +69,18 @@ userController.getUser=async(req,res)=>{
 userController.authSignUp=async(req,res)=>{
   try{
     const { fullName, picture, credit, lang, promptStyle, token } = req.body;
-    const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
-    const ticket= await googleClient.verifyIdToken({
-      idToken:token,
-      audience:GOOGLE_CLIENT_ID
-    })
-    const {email,name}=ticket.getPayload();
+    // const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+    // const ticket= await googleClient.verifyIdToken({
+    //   idToken:token,
+    //   audience:GOOGLE_CLIENT_ID
+    // })
+    // const {email,name}=ticket.getPayload();
+
+const decodedToken=await admin.auth().verifyIdToken(token);
+const {email,name}=decodedToken;
+console.log(email,'email!!!!!!!!!!!!!!!')
+console.log(decodedToken,'decodedToken!!!!!!!!!!!!!!!')
+
     let user = await User.findOne({email});
     if(!user) {
       const randomPassword = ""+Math.floor(Math.random()*1000000000);
@@ -129,7 +140,7 @@ userController.authChromeSignUp=async(req,res)=>{
         password:newPassword,
         email,
         picture,
-        credit:10,
+        credit:20,
         lang,
         promptStyle,
       });
