@@ -69,17 +69,10 @@ userController.getUser=async(req,res)=>{
 userController.authSignUp=async(req,res)=>{
   try{
     const { fullName, picture, credit, lang, promptStyle, token } = req.body;
-    // const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
-    // const ticket= await googleClient.verifyIdToken({
-    //   idToken:token,
-    //   audience:GOOGLE_CLIENT_ID
-    // })
-    // const {email,name}=ticket.getPayload();
-
+  
 const decodedToken=await admin.auth().verifyIdToken(token);
 const {email,name}=decodedToken;
 console.log(email,'email!!!!!!!!!!!!!!!')
-console.log(decodedToken,'decodedToken!!!!!!!!!!!!!!!')
 
     let user = await User.findOne({email});
     if(!user) {
@@ -92,15 +85,19 @@ console.log(decodedToken,'decodedToken!!!!!!!!!!!!!!!')
         password:newPassword,
         email,
         picture,
-        credit:20,
+        credit:10,
         lang,
         promptStyle,
       });
       await user.save();
+      const sessionToken = await user.generateToken();
+      res.status(200).json({status:'success',user,token:sessionToken})
 
     }
-    const sessionToken = await user.generateToken();
-    res.status(200).json({status:'success',user,token:sessionToken})
+    const existingUser=await User.findOne({email})
+    const sessionToken = await existingUser.generateToken();
+    res.status(200).json({status:'success',user:existingUser,token:sessionToken})
+ 
 
   }catch(error){
     res.status(400).json({status:'fail',error:error.message})
