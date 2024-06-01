@@ -86,6 +86,7 @@ console.log(email,'email!!!!!!!!!!!!!!!')
         email,
         picture,
         credit:10,
+        defaultCredit:10,
         lang,
         promptStyle,
       });
@@ -137,7 +138,7 @@ userController.authChromeSignUp=async(req,res)=>{
         password:newPassword,
         email,
         picture,
-        credit:20,
+        credit:10,
         lang,
         promptStyle,
       });
