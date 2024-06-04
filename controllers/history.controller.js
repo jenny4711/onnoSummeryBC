@@ -51,7 +51,7 @@ historyController.makeSummary = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || user.credit <= 0) {
-      throw new error({ message: "Insufficient credit. Please recharge to continue." });
+      throw new Error({ message: "Insufficient credit. Please recharge to continue." });
     }
 
     const existingVideo = await History.findOne({ videoId, lang, ask });
