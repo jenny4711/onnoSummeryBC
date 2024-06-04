@@ -51,7 +51,7 @@ historyController.makeSummary = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || user.credit <= 0) {
-      return res.status(403).json({ message: "Insufficient credit. Please recharge to continue." });
+      throw new error({ message: "Insufficient credit. Please recharge to continue." });
     }
 
     const existingVideo = await History.findOne({ videoId, lang, ask });
@@ -88,8 +88,8 @@ historyController.makeSummary = async (req, res) => {
     return res.status(200).json({ data: summary, videoId, newHistory });
 
   } catch (error) {
-    console.error('Error in makeSummary:', error.message);
-    res.status(500).json({ message: "An error occurred while processing your request.", error: error.message });
+    console.error('Error in makeSummary:', error);
+    res.status(500).json({ message: "An error occurred while processing your request.", error });
   }
 };
 
