@@ -180,7 +180,7 @@ userController.subtractCredit = async (req, res) => {
         await user.save();
         return res.status(200).json({ status: 'You have used 1 credit', data: user.credit });
       } else {
-        throw new Error({ status: 'You have over limit now. Please recharge credit!' });
+        throw new Error('You have over limit now. Please recharge credit!' );
       }
     }
   } catch (error) {
