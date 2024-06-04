@@ -12,7 +12,7 @@ router.delete("/:id",userController.deleteUser)
 router.post("/subcredit",userController.subtractCredit)
 router.put("/editLang/:id",userController.editLang)
 router.put("/editPromptStyle/:id",userController.editPromptStyle)
-
+router.get('/getUser/:email',userController.getUserIOS)
 
 
 

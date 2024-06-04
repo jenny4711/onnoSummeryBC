@@ -89,7 +89,7 @@ historyController.makeSummary = async (req, res) => {
 
   } catch (error) {
     console.error('Error in makeSummary:', error);
-    res.status(500).json({ message: "An error occurred while processing your request.", error });
+    res.status(400).json({ message: "An error occurred while processing your request.", error });
   }
 };
 

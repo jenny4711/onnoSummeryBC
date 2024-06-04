@@ -12,7 +12,17 @@ const GOOGLE_CHROME_CLIENT_ID =process.env.GOOGLE_CHROME_CLIENT_ID
 const GOOGLE_RF_CLIENT_ID =process.env.GOOGLE_RF_CLIENT_ID
 const JWT_SECRET_KEY=process.env.JWT_SECRET_KEY;
 
-
+userController.getUserIOS=async(req,res) => {
+  try{
+    const {email}=req.params;
+    const user = await User.findOne({email:email});
+    if(!user) throw new Error('You do not have an account')
+    res.status(200).json({status:'success',user})
+  }catch(error){
+    console.log(error,'getUserIOS-error')
+    res.status(400).json({status:'fail',error:error.message})
+  }
+}
 
 
 userController.createUser = async (req, res) => {
