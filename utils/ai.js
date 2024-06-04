@@ -41,7 +41,7 @@ const safetySettings = [
   
 
 const createChatWithGoogle = async (prompt, ask) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro"},safetySettings ,generationConfig);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
 console.log(ask,'askCreateChatWithGoogle')
   //------------------------------------------------------------------------------------------------
   const result = await model.generateContentStream(`${ask}  ${prompt} `);
