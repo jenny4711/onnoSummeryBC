@@ -62,6 +62,7 @@ userController.getUser=async(req,res)=>{
     }
     throw new Error('Invalid token')
   }catch(error){
+    console.log(error,'getUser-error')
     res.status(400).json({status:'fail',error:error.message})
   }
 }
@@ -72,7 +73,7 @@ userController.authSignUp=async(req,res)=>{
   
 const decodedToken=await admin.auth().verifyIdToken(token);
 const {email,name}=decodedToken;
-console.log(email,'email!!!!!!!!!!!!!!!')
+
 
     let user = await User.findOne({email});
     if(!user) {
@@ -101,6 +102,7 @@ console.log(email,'email!!!!!!!!!!!!!!!')
  
 
   }catch(error){
+    console.log(error,'errorUser!!!!!!!!!!!')
     res.status(400).json({status:'fail',error:error.message})
   }
 }
@@ -168,12 +170,12 @@ userController.subtractCredit = async (req, res) => {
         await user.save();
         return res.status(200).json({ status: 'You have used 1 credit', data: user.credit });
       } else {
-        res.status(400).json({ status: 'You have over limit now. Please recharge credit!' });
+        throw new Error({ status: 'You have over limit now. Please recharge credit!' });
       }
     }
   } catch (error) {
     console.log(error, "error!!!!!!!!!!!");
-    return res.status(400).json({ status: 'You need to register first', error: error });
+    return res.status(400).json({ status: 'You have over limit now. Please recharge credit!', error: error });
   }
 };
 
