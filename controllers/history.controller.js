@@ -88,8 +88,8 @@ historyController.makeSummary = async (req, res) => {
     return res.status(200).json({ data: summary, videoId, newHistory });
 
   } catch (error) {
-    console.error('Error in makeSummary:', error);
-    res.status(400).json({ message: "An error occurred while processing your request.", error });
+    console.log('Error in makeSummary:', error);
+    res.status(400).json({ message: "An error occurred while processing your request.", error:error });
   }
 };
 
