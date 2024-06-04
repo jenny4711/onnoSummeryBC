@@ -20,7 +20,7 @@ userController.getUserIOS=async(req,res) => {
     res.status(200).json({status:'success',user})
   }catch(error){
     console.log(error,'getUserIOS-error')
-    res.status(400).json({status:'fail',error:error.message})
+    res.status(400).json({status:'fail',error})
   }
 }
 
