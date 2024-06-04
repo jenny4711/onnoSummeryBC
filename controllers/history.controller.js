@@ -51,7 +51,7 @@ historyController.makeSummary = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || user.credit <= 0) {
-      throw new Error({ message: "Insufficient credit. Please recharge to continue." });
+      throw new Error("Insufficient credit. Please recharge to continue." );
     }
 
     const existingVideo = await History.findOne({ videoId, lang, ask });
@@ -75,12 +75,12 @@ historyController.makeSummary = async (req, res) => {
 
     const summaryORG = await createChatWithGoogle(texts.join(' '), ask);
     if (!summaryORG) {
-      throw new Error({message:"AI couldn't generate a summary."});
+      throw new Error("AI couldn't generate a summary.");
     }
 
     const summary = await translateResult(summaryORG, lang);
     if (!summary) {
-      throw new Error({message:"Failed to translate the summary."});
+      throw new Error("Failed to translate the summary.");
     }
 
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary });
