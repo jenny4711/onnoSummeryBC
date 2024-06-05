@@ -25,6 +25,7 @@
     "mongoose": "^8.4.0",
     "node-cron": "^3.0.3",
     "openai": "^4.47.1",
+    "youtube-transcript-api": "^1.1.2",
     "youtubei": "^1.4.1"
   }
 }
