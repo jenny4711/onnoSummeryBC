@@ -3,8 +3,7 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
-// const TranscriptAPI =require('youtube-transcript-api')
-import TranscriptAPI from 'youtube-transcript-api';
+
 const client = new Client();
 const historyController = {};
 
@@ -63,8 +62,8 @@ historyController.makeSummary = async (req, res) => {
     }
 
   
-    const transcript= TranscriptAPI.getVideoTranscript(videoId)
-    // const transcript = await client.getVideoTranscript(videoId);
+    // const transcript= TranscriptAPI.getVideoTranscript(videoId)
+    const transcript = await client.getVideoTranscript(videoId);
    console.log(transcript,'test@@@@@')
   
     
