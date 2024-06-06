@@ -3,7 +3,8 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
-const TranscriptAPI =require('youtube-transcript-api')
+// const TranscriptAPI =require('youtube-transcript-api')
+import TranscriptAPI from 'youtube-transcript-api';
 const client = new Client();
 const historyController = {};
 
