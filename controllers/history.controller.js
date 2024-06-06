@@ -3,7 +3,7 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
-
+const {YoutubeTranscript } = require("youtube-transcript");
 const client = new Client();
 const historyController = {};
 
@@ -20,9 +20,11 @@ historyController. articleSummery=async (req,res)=>{
 }
 
 async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
+ 
   try {
     const existingVideo = await History.findOne({ videoId, lang, ask });
-
+    const test = YoutubeTranscript.fetchTranscript(videoId);
+   console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     if (!existingVideo) {
       const newHistory = new History({
         videoId,
