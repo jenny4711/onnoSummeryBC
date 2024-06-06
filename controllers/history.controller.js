@@ -62,7 +62,7 @@ historyController.makeSummary = async (req, res) => {
     }
 
   
-    const transcript= await TranscriptAPI.getVideoTranscript(videoId)
+    const transcript= TranscriptAPI.getVideoTranscript(videoId)
     // const transcript = await client.getVideoTranscript(videoId);
    console.log(transcript,'test@@@@@')
   
