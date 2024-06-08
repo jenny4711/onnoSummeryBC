@@ -109,7 +109,7 @@ historyController.makeSummary = async (req, res) => {
 
   } catch (error) {
     console.log('Error in makeSummary:', error);
-    res.status(400).json({ message: "An error occurred while processing your request.", error:error });
+    res.status(400).json({ message: "The requested action cannot be processed as it violates our security policy. Please try a different request.", error:error });
   }
 };
 
