@@ -15,7 +15,7 @@ const fetchTranscriptWithCaching = async (videoId) => {
   }
   
 
-  let transcript =await youtube.getVideoTranscript(videoId);
+  let transcript =await client.getVideoTranscript(videoId);
   if(!transcript){
     transcript = await searchApiCaption(videoId);
     console.log("SEARCHAPI!!!@@@@@@@@@@@@@@@@@@@@@@@@")
@@ -62,10 +62,7 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
 }
 
 historyController.makeSummary = async (req, res) => {
-  const { videoId, lang, ask, email } = req.body;
-  const test = await YoutubeTranscript.fetchTranscript(videoId);
-console.log(test,'test!!test')
-  
+
   try {
     const { videoId, lang, ask, email } = req.body;
     
@@ -85,9 +82,6 @@ console.log(test,'test!!test')
       return res.status(200).json({ data: existingVideo.summary, videoId });
     }
  
-   
-    
-
     const transcript=await fetchTranscriptWithCaching(videoId);
    console.log(transcript,'test@@@@@')
   
