@@ -23,8 +23,7 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
  
   try {
     const existingVideo = await History.findOne({ videoId, lang, ask });
-    const test = YoutubeTranscript.fetchTranscript(videoId);
-   console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+   
     if (!existingVideo) {
       const newHistory = new History({
         videoId,
@@ -36,15 +35,17 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
       await newHistory.save();
       return newHistory;
     } else {
-      console.log('Video already exists in the history', videoId);
+      return existingVideo;
     }
   } catch (error) {
-    console.error('Error in saveSummary:', error.message);
+    console.log('Error in saveSummary:', error.message);
     throw new Error('Failed to save summary.');
   }
 }
 
 historyController.makeSummary = async (req, res) => {
+  const test = YoutubeTranscript.fetchTranscript(videoId);
+  console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
   try {
     const { videoId, lang, ask, email } = req.body;
 
@@ -62,11 +63,11 @@ historyController.makeSummary = async (req, res) => {
      
       return res.status(200).json({ data: existingVideo.summary, videoId });
     }
-
-  
-    // const transcript= TranscriptAPI.getVideoTranscript(videoId)
+ 
+   
+    
     const transcript = await client.getVideoTranscript(videoId);
-   console.log(transcript,'test@@@@@')
+   console.log(!transcript,'test@@@@@')
   
     
     if (!transcript || !Array.isArray(transcript)) {
