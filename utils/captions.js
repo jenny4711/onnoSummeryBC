@@ -9,7 +9,7 @@ const axios = require('axios');
     const params = {
       "engine": "youtube_transcripts",
       "video_id": videoId,
-      "api_key": "yb6MH1EWHjMhhoNMa98eVgNQ"
+      "api_key": process.env.SEARCHAPI_API_KEY,
     };
 
 const res = await axios.get(url, { params });

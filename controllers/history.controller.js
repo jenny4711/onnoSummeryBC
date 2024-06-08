@@ -13,8 +13,14 @@ const fetchTranscriptWithCaching = async (videoId) => {
   if (transcriptCache.has(videoId)) {
     return transcriptCache.get(videoId);
   }
+  
 
-  const transcript = await searchApiCaption(videoId);
+  let transcript =await youtube.getVideoTranscript(videoId);
+  if(!transcript){
+    transcript = await searchApiCaption(videoId);
+    console.log("SEARCHAPI!!!@@@@@@@@@@@@@@@@@@@@@@@@")
+  }
+   
   transcriptCache.set(videoId, transcript);
   return transcript;
 };
@@ -57,13 +63,12 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
 
 historyController.makeSummary = async (req, res) => {
   const { videoId, lang, ask, email } = req.body;
-  const test = YoutubeTranscript.fetchTranscript(videoId);
+  const test = await YoutubeTranscript.fetchTranscript(videoId);
 console.log(test,'test!!test')
   
   try {
     const { videoId, lang, ask, email } = req.body;
-    const test = await fetchTranscriptWithCaching(videoId);
-  console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    
 
     if (!videoId) {
       return res.status(400).json({ message: 'VideoId is required' });
@@ -82,7 +87,7 @@ console.log(test,'test!!test')
  
    
     
-    // const transcript = await client.getVideoTranscript(videoId);
+
     const transcript=await fetchTranscriptWithCaching(videoId);
    console.log(transcript,'test@@@@@')
   
