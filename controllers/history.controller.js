@@ -79,7 +79,7 @@ historyController.makeSummary = async (req, res) => {
     const existingVideo = await History.findOne({ videoId, lang, ask });
     if (existingVideo) {
      
-      return res.status(200).json({ data: existingVideo.summary, videoId });
+      return res.status(200).json({ newHistory: existingVideo.summary, videoId });
     }
  
     const transcript=await fetchTranscriptWithCaching(videoId);
@@ -100,12 +100,12 @@ historyController.makeSummary = async (req, res) => {
 
     const summary = await translateResult(summaryORG, lang);
     if (!summary) {
-      throw new Error("Failed to translate the summary.");
+      return res.status(200).json({ data: summaryORG, videoId })
     }
 
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary });
     // console.log('New summary created:', res);
-    return res.status(200).json({ data: summary, videoId, data:newHistory });
+    return res.status(200).json({ data: summary, videoId, newHistory });
 
   } catch (error) {
     console.log('Error in makeSummary:', error);
