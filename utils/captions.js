@@ -9,6 +9,7 @@ const axios = require('axios');
     const params = {
       "engine": "youtube_transcripts",
       "video_id": videoId,
+      "lang":"ko",
       "api_key": process.env.SEARCHAPI_API_KEY,
     };
 
