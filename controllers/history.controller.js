@@ -4,8 +4,19 @@ const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
 const {YoutubeTranscript } = require("youtube-transcript");
+const transcriptCache = new Map();
 const client = new Client();
 const historyController = {};
+
+const fetchTranscriptWithCaching = async (videoId) => {
+  if (transcriptCache.has(videoId)) {
+    return transcriptCache.get(videoId);
+  }
+
+  const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+  transcriptCache.set(videoId, transcript);
+  return transcript;
+};
 
 
 historyController. articleSummery=async (req,res)=>{
@@ -50,7 +61,7 @@ console.log(test,'test!!test')
   
   try {
     const { videoId, lang, ask, email } = req.body;
-    const test = YoutubeTranscript.fetchTranscript(videoId);
+    const test = await fetchTranscriptWithCaching(videoId);
   console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     if (!videoId) {
