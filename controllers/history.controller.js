@@ -83,7 +83,7 @@ historyController.makeSummary = async (req, res) => {
     }
  
     const transcript=await fetchTranscriptWithCaching(videoId);
-   console.log(transcript,'test@@@@@')
+   console.log(transcript[1],'test@@@@@')
   
     
     if (!transcript || !Array.isArray(transcript)) {
@@ -105,7 +105,7 @@ historyController.makeSummary = async (req, res) => {
 
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary });
     // console.log('New summary created:', res);
-    return res.status(200).json({ data: summary, videoId, newHistory });
+    return res.status(200).json({ data: summary, videoId, data:newHistory });
 
   } catch (error) {
     console.log('Error in makeSummary:', error);

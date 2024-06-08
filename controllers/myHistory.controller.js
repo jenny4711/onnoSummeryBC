@@ -2,30 +2,50 @@ const MyHistory = require('../model/MyHistory')
 const myHistoryController={};
 const mongoose = require('mongoose')
 const User = require('../model/User')
+const History = require('../model/History')
 
-myHistoryController.saveHistory=async(req,res)=>{
-  try{
-    const{historyId, userEmail}=req.body;
-    const checkHistory = await MyHistory.findOne({historyId})
-    const user = await User.findOne({email:userEmail})
- 
+myHistoryController.saveHistory = async (req, res) => {
+  try {
+    const { historyId, userEmail } = req.body;
+
+    // ObjectId 유효성 검사
     if (!mongoose.Types.ObjectId.isValid(historyId)) {
-      return res.status(400).json({ message: 'Invalid historyId format' });
+      return res.status(400).json({ message: 'Invalid historyId' });
     }
-    if(!user) throw new Error('user not found')
 
-    if(checkHistory){
-      return res.status(200).json({message:'already have it',data:checkHistory})
+    // 사용자 유효성 검사
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    // historyId에 해당하는 기록 찾기
+    const findHistory = await History.findById(historyId);
+    if (!findHistory) {
+      return res.status(404).json({ message: 'History not found' });
+    }
+
+    // 중복 검사
+    const checkHistory = await MyHistory.findOne({ historyId, userEmail });
+    if (checkHistory) {
+      return res.status(200).json({ message: 'Already have it', data: checkHistory });
+    }
+
+    // 새로운 기록 저장
     const newHistory = new MyHistory({
       historyId,
-      userEmail,
+      userEmail
     });
     await newHistory.save();
-  }catch(error){
-    console.log(error,'error=saveMyHistory')
+
+    res.status(201).json({ message: 'History saved successfully', data: newHistory });
+  } catch (error) {
+    console.log('Error:', error, 'error=saveMyHistory');
+    res.status(500).json({ message: 'Error saving history', error: error.message });
   }
-}
+};
+
+
 
 myHistoryController.showMyHistory=async(req,res)=>{
   try{
