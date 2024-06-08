@@ -44,10 +44,14 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
 }
 
 historyController.makeSummary = async (req, res) => {
+  const { videoId, lang, ask, email } = req.body;
   const test = YoutubeTranscript.fetchTranscript(videoId);
-  console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+console.log(test,'test!!test')
+  
   try {
     const { videoId, lang, ask, email } = req.body;
+    const test = YoutubeTranscript.fetchTranscript(videoId);
+  console.log(test,'test!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     if (!videoId) {
       return res.status(400).json({ message: 'VideoId is required' });
