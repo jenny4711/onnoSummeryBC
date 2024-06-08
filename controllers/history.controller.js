@@ -4,6 +4,7 @@ const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
 const {YoutubeTranscript } = require("youtube-transcript");
+const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
 const client = new Client();
 const historyController = {};
@@ -13,7 +14,7 @@ const fetchTranscriptWithCaching = async (videoId) => {
     return transcriptCache.get(videoId);
   }
 
-  const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+  const transcript = await searchApiCaption(videoId);
   transcriptCache.set(videoId, transcript);
   return transcript;
 };
@@ -81,8 +82,9 @@ console.log(test,'test!!test')
  
    
     
-    const transcript = await client.getVideoTranscript(videoId);
-   console.log(!transcript,'test@@@@@')
+    // const transcript = await client.getVideoTranscript(videoId);
+    const transcript=await fetchTranscriptWithCaching(videoId);
+   console.log(transcript,'test@@@@@')
   
     
     if (!transcript || !Array.isArray(transcript)) {
