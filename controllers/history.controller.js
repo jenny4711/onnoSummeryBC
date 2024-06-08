@@ -85,7 +85,7 @@ historyController.makeSummary = async (req, res) => {
     }
  
     const transcript=await fetchTranscriptWithCaching(videoId);
-   console.log(transcript[1],'test@@@@@')
+   console.log(transcript,'test@@@@@')
   
     
     if (!transcript || !Array.isArray(transcript)) {
