@@ -19,11 +19,13 @@ const fetchTranscriptWithCaching = async (videoId) => {
   if(!transcript){
     transcript = await searchApiCaption(videoId);
     const test= await searchApiCaption(videoId);
-    console.log(transcript,"SEARCHAPI!!!@@@@@@@@@@@@@@@@@@@@@@@@")
+  
     console.log(test,"SEARCHAPI!!!@@@@@@@@@@@test@@@@@@@@@@@@@")
   }
    
   transcriptCache.set(videoId, transcript);
+  console.log(transcriptCache,'cache')
+  console.log(transcript,"SEARCHAPI!!!@@@@@@@@@@@@@@@@@@@@@@@@")
   return transcript;
 };
 
