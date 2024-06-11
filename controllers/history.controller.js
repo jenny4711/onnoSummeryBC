@@ -19,8 +19,6 @@ const fetchTranscriptWithCaching = async (videoId) => {
   if(!transcript){
   return   transcript = await searchApiCaption(videoId);
   
-  
-
   }
    
   transcriptCache.set(videoId, transcript);
@@ -30,22 +28,13 @@ const fetchTranscriptWithCaching = async (videoId) => {
 };
 
 
-historyController. articleSummery=async (req,res)=>{
-  try{
-    const {lang,url}=req.body;
-    const articleSummery = await createSummeryWithGoogle(url,lang)
-   
-  }catch(error){
-    console.log(error,'error-articleSummery')
-  }
 
-}
 
 async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
  
   try {
-    const existingVideo = await History.findOne({ videoId, lang, ask });
-   
+    const existingVideo = await History.findOne({ videoId, lang });
+   console.log(existingVideo,'test!!!!!extTTTTTTTT!!!!!!')
     if (!existingVideo) {
       const newHistory = new History({
         videoId,
@@ -80,14 +69,14 @@ historyController.makeSummary = async (req, res) => {
       throw new Error("Insufficient credit. Please recharge to continue." );
     }
 
-    const existingVideo = await History.findOne({ videoId, lang, ask });
+    const existingVideo = await History.findOne({ videoId, lang });
     if (existingVideo) {
-     
-      return res.status(200).json({ newHistory: existingVideo.summary, videoId });
+     console.log(existingVideo,'test!!!!!extTTTTTTTT!!!!!!')
+      return res.status(200).json({ data: existingVideo.summary, videoId });
     }
  
     const transcript= await fetchTranscriptWithCaching(videoId);
-   console.log(transcript,'test@@@@@')
+ 
   
     
     if (!transcript || !Array.isArray(transcript)) {
