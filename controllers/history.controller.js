@@ -112,6 +112,9 @@ historyController.makeSummary = async (req, res) => {
     return res.status(200).json({ data: summary, videoId, newHistory });
 
   } catch (error) {
+    const { videoId, lang, ask, email } = req.body;
+    const transcript=await fetchTranscriptWithCaching(videoId);
+    console.log(transcript,'test@@@@ERROR@')
     console.log('Error in makeSummary:', error);
     res.status(400).json({ message: "The requested action cannot be processed as it violates our security policy. Please try a different request.", error:error });
   }
