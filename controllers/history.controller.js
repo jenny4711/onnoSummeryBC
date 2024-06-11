@@ -86,7 +86,7 @@ historyController.makeSummary = async (req, res) => {
       return res.status(200).json({ newHistory: existingVideo.summary, videoId });
     }
  
-    const transcript= await searchApiCaption(videoId);
+    const transcript= await fetchTranscriptWithCaching(videoId);
    console.log(transcript,'test@@@@@')
   
     
