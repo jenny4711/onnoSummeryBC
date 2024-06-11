@@ -72,7 +72,7 @@ historyController.makeSummary = async (req, res) => {
     const existingVideo = await History.findOne({ videoId, lang });
     if (existingVideo) {
      console.log(existingVideo,'test!!!!!extTTTTTTTT!!!!!!')
-      return res.status(200).json({ data: existingVideo.summary, videoId });
+      return res.status(200).json({ data: existingVideo.summary,newHistory:existingVideo ,videoId });
     }
  
     const transcript= await fetchTranscriptWithCaching(videoId);
