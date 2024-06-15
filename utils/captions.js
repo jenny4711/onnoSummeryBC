@@ -9,7 +9,7 @@ const findLanguage=async(videoId)=>{
 const params = {
   "engine": "youtube_video",
   "video_id": videoId,
-  "api_key": "HAZH2Utd9CW7RgFgdVQ8CUtV"
+  "api_key": process.env.SEARCHAPI_API_KEY2,
 };
 
     const res = await axios.get(url, { params });
