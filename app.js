@@ -54,8 +54,8 @@ cron.schedule('58 23 * * *',async () => {
       
       for (let user of allUsers) {
         if (user.myRef && user.myRef.length > 0) {
-          await User.updateOne({ _id: user._id }, { $inc: { credit: user.myRef.length * 5 } });
-          await User.updateOne({ _id: user._id }, { $inc: { defaultCredit: user.myRef.length * 5 } });
+          await User.updateOne({ _id: user._id }, { $inc: { credit:10+ (user.myRef.length * 5) } });
+          await User.updateOne({ _id: user._id }, { $inc: { defaultCredit:10+ (user.myRef.length * 5) } });
           console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
         }
       }

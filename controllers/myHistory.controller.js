@@ -7,7 +7,8 @@ const History = require('../model/History')
 myHistoryController.saveHistory = async (req, res) => {
   try {
     const { historyId, userEmail } = req.body;
-
+console.log(historyId,'historyId!!!!!!!!!!!!!!')
+console.log(userEmail,'userEmail!!!!!!!!!!!!!!')
     // ObjectId 유효성 검사
     if (!mongoose.Types.ObjectId.isValid(historyId)) {
       return res.status(400).json({ message: 'Invalid historyId' });
