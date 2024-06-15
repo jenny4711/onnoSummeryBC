@@ -28,12 +28,12 @@ return res.data.available_transcripts_languages;
     const params = {
       "engine": "youtube_transcripts",
       "video_id": videoId,
-   
+   "language": lang[0].lang,
       "api_key": process.env.SEARCHAPI_API_KEY,
     };
 
 const res = await axios.get(url, { params });
-console.log(lang,'res.data-lang')
+console.log(lang[0].lang,'res.data-lang')
 return res.data.transcripts;
 
   }catch(error){
