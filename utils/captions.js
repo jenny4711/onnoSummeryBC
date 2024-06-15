@@ -28,7 +28,7 @@ return res.data.available_transcripts_languages;
     const params = {
       "engine": "youtube_transcripts",
       "video_id": videoId,
-   "language": lang[0].lang,
+   "lang": lang[0].lang,
       "api_key": process.env.SEARCHAPI_API_KEY,
     };
 
