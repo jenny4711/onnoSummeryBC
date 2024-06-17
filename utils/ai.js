@@ -42,7 +42,7 @@ const safetySettings = [
 
 const createChatWithGoogle = async (prompt, ask) => {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
-console.log(ask,'askCreateChatWithGoogle')
+console.log('askCreateChatWithGoogle')
   //------------------------------------------------------------------------------------------------
   const result = await model.generateContentStream(`${ask}  ${prompt} `);
 
@@ -53,12 +53,12 @@ console.log(ask,'askCreateChatWithGoogle')
     text += chunkText;
   }
                                                                                                                                                            
-console.log(text,'text!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
   return text;
 };
 
 const translateResult = async (story, lang) => {
-  console.log(story,'story!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.log('story!!!!!!!!!!!!!!!!translateResult!!!!!!!!!!!!');
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -67,7 +67,7 @@ const translateResult = async (story, lang) => {
         { role: 'user', content: `Please translate this ${story} into ${lang} and make it easier to understand.  ` },
       ],
     });
-    console.log(response.choices[0].message.content,'length!!!!!!!!');
+  
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Error creating chat completion:', error);
@@ -85,7 +85,7 @@ const articleSummaryAi = async (url, lang) => {
         { role: 'user', content: `Please read this article ${url} and summarize the key points in ${lang} in a way that's easy to understand. ` },
       ],
     });
-    console.log(response.choices[0].message.content,'articleSummeryAi!!!!!!!!');
+    console.log('articleSummeryAi!!!!!!!!');
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Error creating chat completion:', error);
@@ -106,7 +106,7 @@ const createSummeryWithGoogle = async (url, lang) => {
     text += chunkText;
   }
                                                                                                                                                            
-console.log(text,'createSummeryWithGoogle')
+console.log('createSummeryWithGoogle')
   return text;
 };
 
