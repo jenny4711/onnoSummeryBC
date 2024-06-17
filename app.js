@@ -51,14 +51,23 @@ cron.schedule('58 23 * * *',async () => {
     console.log('크론 작업 extra credit이 실행되었습니다.');
     try {
       const allUsers = await User.find({});
-      
-      for (let user of allUsers) {
-        if (user.myRef && user.myRef.length > 0) {
-          await User.updateOne({ _id: user._id }, { $inc: { credit:10+ (user.myRef.length * 5) } });
-          await User.updateOne({ _id: user._id }, { $inc: { defaultCredit:10+ (user.myRef.length * 5) } });
+
+      allUsers.filter((user)=>{
+        if(user.myRef && user.myRef.length>0){
+          user.credit = user.credit  + (user.myRef.length * 5);
+          user.defaultCredit = user.defaultCredit  + (user.myRef.length * 5);
           console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
         }
-      }
+
+      })
+      
+      // for (let user of allUsers) {
+      //   if (user.myRef && user.myRef.length > 0) {
+      //     await User.updateOne({ _id: user._id }, { $inc: { credit:10+ (user.myRef.length * 5) } });
+      //     await User.updateOne({ _id: user._id }, { $inc: { defaultCredit:10+ (user.myRef.length * 5) } });
+      //     console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
+      //   }
+      // }
     } catch (error) {
       console.error('추가 크레딧 업데이트 중 에러가 발생했습니다:', error);
     }
