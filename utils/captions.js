@@ -33,7 +33,7 @@ return res.data.available_transcripts_languages;
     };
 
 const res = await axios.get(url, { params });
-console.log(lang[0].lang,'res.data-lang')
+
 return res.data.transcripts;
 
   }catch(error){

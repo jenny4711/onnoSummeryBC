@@ -3,7 +3,6 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
-const {YoutubeTranscript } = require("youtube-transcript");
 const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
 const client = new Client();
@@ -22,7 +21,7 @@ const fetchTranscriptWithCaching = async (videoId) => {
   }
    
   transcriptCache.set(videoId, transcript);
-  console.log(transcriptCache,'cache')
+
   console.log(transcript,"SEARCHAPI!!!@@@@@@@@@@@@@@@@@@@@@@@@")
   return transcript;
 };
@@ -34,7 +33,7 @@ async function saveSummary({ videoId, summaryORG, lang, ask, summary }) {
  
   try {
     const existingVideo = await History.findOne({ videoId, lang });
-   console.log(existingVideo,'test!!!!!extTTTTTTTT!!!!!!')
+ 
     if (!existingVideo) {
       const newHistory = new History({
         videoId,
@@ -97,7 +96,7 @@ historyController.makeSummary = async (req, res) => {
     }
 
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary });
-    // console.log('New summary created:', res);
+    
     return res.status(200).json({ data: summary, videoId, newHistory });
 
   } catch (error) {

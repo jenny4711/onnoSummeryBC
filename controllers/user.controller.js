@@ -120,7 +120,7 @@ const {email,name}=decodedToken;
 userController.authChromeSignUp=async(req,res)=>{
   try{
     const { fullName, picture, credit, lang, promptStyle, token } = req.body;
-    console.log(token,'token!!!!!')
+   
   if(!token){
     return res.status(400).json({status:'fail',error:'Token is required'})
   }
@@ -216,23 +216,23 @@ userController.editMyRef = async (req, res) => {
   try {
     const _id = req.params.userId;
     const friend = req.params.refEmail;
-    console.log(_id, friend, 'editMyRef', friend, 'friend!!!!!!!!!!!!!!!!!!!!!!!!!');
+    
 
-    // 사용자 조회
+
     const user = await User.findOne({ _id });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // 친구 이메일로 사용자 조회
+    
     const checkUser = await User.findOne({ email: friend });
 
-    // 이미 추가된 친구인지 확인
+  
     if ( user.myRef.includes(friend)) {
       console.log('Friend already added:', friend);
       return res.status(400).json({ message: 'You already added it' });
     } else {
-      // 친구 추가
+      
       user.myRef.push(friend);
       await user.save();
       console.log(user.myRef, 'current myRef');

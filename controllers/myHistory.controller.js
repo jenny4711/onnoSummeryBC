@@ -7,32 +7,30 @@ const History = require('../model/History')
 myHistoryController.saveHistory = async (req, res) => {
   try {
     const { historyId, userEmail } = req.body;
-console.log(historyId,'historyId!!!!!!!!!!!!!!')
-console.log(userEmail,'userEmail!!!!!!!!!!!!!!')
-    // ObjectId 유효성 검사
+
+    
     if (!mongoose.Types.ObjectId.isValid(historyId)) {
       return res.status(400).json({ message: 'Invalid historyId' });
     }
 
-    // 사용자 유효성 검사
     const user = await User.findOne({ email: userEmail });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // historyId에 해당하는 기록 찾기
+   
     const findHistory = await History.findById(historyId);
     if (!findHistory) {
       return res.status(404).json({ message: 'History not found' });
     }
 
-    // 중복 검사
+  
     const checkHistory = await MyHistory.findOne({ historyId, userEmail });
     if (checkHistory) {
       return res.status(200).json({ message: 'Already have it', data: checkHistory });
     }
 
-    // 새로운 기록 저장
+   
     const newHistory = new MyHistory({
       historyId,
       userEmail
