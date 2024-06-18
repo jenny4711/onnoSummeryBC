@@ -55,7 +55,7 @@ cron.schedule('58 23 * * *',async () => {
       allUsers.filter((user)=>{
         if(user.myRef && user.myRef.length>0){
           user.credit = user.credit  + (user.myRef.length * 5);
-          user.defaultCredit = user.defaultCredit  + (user.myRef.length * 5);
+          user.defaultCredit = user.credit + (user.myRef.length * 5);
           console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
         }
 
