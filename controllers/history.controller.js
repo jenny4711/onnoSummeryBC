@@ -85,7 +85,8 @@ historyController.makeSummary = async (req, res) => {
     const texts = transcript.map(element => element.text);
     
 
-    const summaryORG = await createChatWithGoogle(texts.join(' '), ask);
+    const summaryORG = await createChatWithGoogle(texts.join(' '), ask,lang);
+    console.log(summaryORG,'summaryORG')
     if (!summaryORG) {
       throw new Error("AI couldn't generate a summary.");
     }

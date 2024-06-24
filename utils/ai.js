@@ -40,11 +40,11 @@ const safetySettings = [
   
   
 
-const createChatWithGoogle = async (prompt, ask) => {
+const createChatWithGoogle = async (prompt, ask,lang) => {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
 console.log('askCreateChatWithGoogle')
   //------------------------------------------------------------------------------------------------
-  const result = await model.generateContentStream(`${ask}  ${prompt} `);
+  const result = await model.generateContentStream(`${ask}  ${prompt} in ${lang}`);
 
   let text = '';
   for await (const chunk of result.stream) {
