@@ -95,10 +95,10 @@ historyController.makeSummary = async (req, res) => {
     // if (!summary) {
     //   return res.status(200).json({ data: summaryORG, videoId })
     // }
-
+   let summary = summaryORG
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary: summaryORG});
     console.log(newHistory,'newHistory  ')
-    return res.status(200).json({ data: summary, videoId, newHistory });
+    return res.status(200).json({ data: summary,summaryORG, videoId, newHistory });
 
   } catch (error) {
   
