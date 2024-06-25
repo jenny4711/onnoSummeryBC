@@ -44,7 +44,7 @@ const createChatWithGoogle = async (prompt, ask,lang) => {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
 console.log('askCreateChatWithGoogle')
   //------------------------------------------------------------------------------------------------
-  const result = await model.generateContentStream(`${ask}  ${prompt} in ${lang}`);
+  const result = await model.generateContentStream(`${ask}  ${prompt} `);
 
   let text = '';
   for await (const chunk of result.stream) {
@@ -59,19 +59,27 @@ console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
 
 const translateResult = async (story, lang) => {
   console.log('story!!!!!!!!!!!!!!!!translateResult!!!!!!!!!!!!');
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: `You are a ${lang} interpreter.` },
-        { role: 'user', content: `Please translate this ${story} into ${lang} and make it easier to understand.  ` },
-      ],
-    });
-  
-    return response.choices[0].message.content;
-  } catch (error) {
+  try{
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
+    const result = await model.generateContentStream(`You are a ${lang} interpreter.Please translate this ${story} into ${lang} and make it easier to understand.`);
+return result;
+  }catch(error){
+    console.log('Error:', error, 'error=translateResult');
     console.error('Error creating chat completion:', error);
   }
+  // try {
+  //   const response = await openai.chat.completions.create({
+  //     model: 'gpt-3.5-turbo',
+  //     messages: [
+  //       { role: 'system', content: `You are a ${lang} interpreter.` },
+  //       { role: 'user', content: `Please translate this ${story} into ${lang} and make it easier to understand.  ` },
+  //     ],
+  //   });
+  
+  //   return response.choices[0].message.content;
+  // } catch (error) {
+  //   console.error('Error creating chat completion:', error);
+  // }
 };
 //----------------------------------------
 
