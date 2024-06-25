@@ -91,12 +91,12 @@ historyController.makeSummary = async (req, res) => {
       throw new Error("AI couldn't generate a summary.");
     }
 
-    // const summary = await translateResult(summaryORG, lang);
-    // if (!summary) {
-    //   return res.status(200).json({ data: summaryORG, videoId })
-    // }
-   let summary = summaryORG
-    const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary: summaryORG});
+    const summary = await translateResult(summaryORG, lang);
+    if (!summary) {
+      return res.status(200).json({ data: summaryORG, videoId })
+    }
+  
+    const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary});
     console.log(newHistory,'newHistory  ')
     return res.status(200).json({ data: summary,summaryORG, videoId, newHistory });
 
