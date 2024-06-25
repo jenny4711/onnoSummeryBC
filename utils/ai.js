@@ -62,6 +62,7 @@ const translateResult = async (story, lang) => {
   try{
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
     const result = await model.generateContentStream(`You are a ${lang} interpreter.Please translate this ${story} into ${lang} and make it easier to understand.`);
+    console.log(result,'result!!!!!!!!!')
 return result;
   }catch(error){
     console.log('Error:', error, 'error=translateResult');

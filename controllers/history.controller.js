@@ -92,8 +92,9 @@ historyController.makeSummary = async (req, res) => {
     }
 
     const summary = await translateResult(summaryORG, lang);
+    console.log(summary,'summary!!!!!!!!')
     if (!summary) {
-      return res.status(200).json({ data: summaryORG, videoId })
+      return res.status(200).json({ data: summary, videoId })
     }
   
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary});
