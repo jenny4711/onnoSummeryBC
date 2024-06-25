@@ -62,8 +62,14 @@ const translateResult = async (story, lang) => {
   try{
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
     const result = await model.generateContentStream(`You are a ${lang} interpreter.Please translate this ${story} into ${lang} and make it easier to understand.`);
-    console.log(result,'result!!!!!!!!!')
-return result;
+    let text = '';
+  for await (const chunk of result.stream) {
+    const chunkText = chunk.text();
+    console.log(chunkText);
+    text += chunkText;
+  }
+  console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
+  return text;
   }catch(error){
     console.log('Error:', error, 'error=translateResult');
     console.error('Error creating chat completion:', error);
