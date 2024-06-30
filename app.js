@@ -52,14 +52,21 @@ cron.schedule('58 23 * * *',async () => {
     try {
       const allUsers = await User.find({});
 
-      allUsers.filter((user)=>{
-        if(user.myRef && user.myRef.length>0){
-          user.credit = user.credit  + (user.myRef.length * 5);
-          user.defaultCredit = user.credit + (user.myRef.length * 5);
-          console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
-        }
+      const user = await User.find({status:'free'})
+      if(user){
+        await user.updateOne({},{$set:{credit:user.credit+(user.myRef.length * 5)}});
+        await user.updateOne({},{$set:{defaultCredit:user.credit+(user.myRef.length * 5)}});
+      }
 
-      })
+      // allUsers.filter((user)=>{
+      //   if(user.myRef && user.myRef.length>0){
+          
+      //     user.credit = user.credit  + (user.myRef.length * 5);
+      //     user.defaultCredit = user.credit + (user.myRef.length * 5);
+      //     console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
+      //   }
+
+      // })
       
       // for (let user of allUsers) {
       //   if (user.myRef && user.myRef.length > 0) {
