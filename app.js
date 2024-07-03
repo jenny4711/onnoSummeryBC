@@ -54,8 +54,9 @@ cron.schedule('58 23 * * *',async () => {
 
       const user = await User.find({status:'free'})
       if(user){
-        await user.updateOne({},{$set:{credit:user.credit+(user.myRef.length * 5)}});
-        await user.updateOne({},{$set:{defaultCredit:user.credit+(user.myRef.length * 5)}});
+        await user.updateMany({},{$set:{credit:user.credit+(user.myRef.length * 5)}});
+        await user.updateMany({},{$set:{defaultCredit:user.credit+(user.myRef.length * 5)}});
+        console.log(`추가 크레딧이 추가되었습니다.`);
       }
 
       // allUsers.filter((user)=>{
