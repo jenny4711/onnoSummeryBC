@@ -50,32 +50,33 @@ cron.schedule('58 23 * * *',async () => {
   cron.schedule('59 23 * * *', async () => {
     console.log('크론 작업 extra credit이 실행되었습니다.');
     try {
-      const allUsers = await User.find({});
 
-      const user = await User.find({status:'free'})
-      if(user){
-        await user.updateMany({},{$set:{credit:user.credit+(user.myRef.length * 5)}});
-        await user.updateMany({},{$set:{defaultCredit:user.credit+(user.myRef.length * 5)}});
+
+      const users = await User.find({ status: 'free' });
+      if (users.length > 0) {
+        for (let user of users) {
+          const extraCredit = (user.myRef ? user.myRef.length : 0) * 5;
+          await User.updateOne(
+            { _id: user._id },
+            { 
+              $set: {
+                credit: user.credit + extraCredit,
+                defaultCredit: user.defaultCredit + extraCredit
+              }
+            }
+          );
+        }
         console.log(`추가 크레딧이 추가되었습니다.`);
+      } else {
+        console.log(`무료 상태의 사용자가 없습니다.`);
       }
 
-      // allUsers.filter((user)=>{
-      //   if(user.myRef && user.myRef.length>0){
-          
-      //     user.credit = user.credit  + (user.myRef.length * 5);
-      //     user.defaultCredit = user.credit + (user.myRef.length * 5);
-      //     console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
-      //   }
 
-      // })
-      
-      // for (let user of allUsers) {
-      //   if (user.myRef && user.myRef.length > 0) {
-      //     await User.updateOne({ _id: user._id }, { $inc: { credit:10+ (user.myRef.length * 5) } });
-      //     await User.updateOne({ _id: user._id }, { $inc: { defaultCredit:10+ (user.myRef.length * 5) } });
-      //     console.log(`${user._id}의 크레딧이 ${user.myRef.length * 5}만큼 추가되었습니다.`);
-      //   }
-      // }
+
+
+
+   
+  
     } catch (error) {
       console.error('추가 크레딧 업데이트 중 에러가 발생했습니다:', error);
     }
