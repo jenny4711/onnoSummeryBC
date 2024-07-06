@@ -169,6 +169,38 @@ userController.authChromeSignUp=async(req,res)=>{
   }
 }
 
+userController.signupForDemo= async(req,res) =>{
+  try{
+    const {email,password,picture,lang,promptStyle,credit}=req.body;
+    let user = await User.findOne({email})
+    if(user) {
+      const sessionToken = await user.generateToken();
+      return res.status(200).json({status:'success-login',user,token:sessionToken})
+    }
+const salt=await bcrypt.genSalt(10);
+const newPassword = await bcrypt.hash(password,salt);
+
+user = new User({
+  email,password:newPassword,fullName:'testDemo',picture,lang,promptStyle,credit
+})
+await user.save();
+const sessionToken= await user.generateToken();
+res.status(200).json({status:'success',user,token:sessionToken})
+
+  }catch(error){
+    console.log(error,'error-signupForDemo')
+    res.status(400).json({status:'fail',error:error.message})
+  }
+}
+
+
+
+
+
+
+
+//----------------------------------
+
 userController.subtractCredit = async (req, res) => {
   try {
     const { email } = req.body;

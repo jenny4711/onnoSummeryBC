@@ -71,10 +71,6 @@ cron.schedule('58 23 * * *',async () => {
         console.log(`무료 상태의 사용자가 없습니다.`);
       }
 
-
-
-
-
    
   
     } catch (error) {
