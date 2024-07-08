@@ -61,7 +61,7 @@ cron.schedule('58 23 * * *',async () => {
             { 
               $set: {
                 credit: user.credit + extraCredit,
-                defaultCredit: user.defaultCredit + extraCredit
+                defaultCredit: user.credit + extraCredit
               }
             }
           );
