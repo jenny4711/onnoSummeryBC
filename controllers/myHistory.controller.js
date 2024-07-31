@@ -75,4 +75,21 @@ myHistoryController.deleteMyHistory=async(req,res)=>{
   }
 }
 
+myHistoryController.deleteAllMyHistoryList=async(req,res)=>{
+  try{
+    const deletedAll=await MyHistory.deleteMany({email:req.params.email})
+    if(!deletedAll){
+      return res.status(400).json({message:'not found'})
+    }
+    return res.status(200).json({status:'success-deleteAllMyHistory',data:deletedAll})
+  }catch(error){
+    console.log(error.message,'error-deleteAllMyHistory')
+  }
+}
+
+
+
+
+
+
 module.exports=myHistoryController;
