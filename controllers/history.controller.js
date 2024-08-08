@@ -76,7 +76,8 @@ historyController.makeSummary = async (req, res) => {
  
     const transcript= await fetchTranscriptWithCaching(videoId);
  
-  
+  console.log(transcript,'transcript')
+  console.log(videoId,'videoId!!!!!!!!!!!!!!!!!!')
     
     if (!transcript || !Array.isArray(transcript)) {
       return res.status(404).json({ message: "Failed to retrieve transcript for the video." });
