@@ -3,6 +3,7 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
+const { Innertube }='youtubei.js/web'
 const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
 const client = new Client();
@@ -13,8 +14,10 @@ const fetchTranscriptWithCaching = async (videoId) => {
     return transcriptCache.get(videoId);
   }
   
-
-  let transcript =await client.getVideoTranscript(videoId);
+const info =await youtube.getInfo(videoId);
+let transcript = await info.getTranscript();
+console.log(transcript,'transcript!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ')
+  // let transcript =await client.getVideoTranscript(videoId);
   if(!transcript){
   return   transcript = await searchApiCaption(videoId);
   
