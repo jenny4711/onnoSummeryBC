@@ -17,12 +17,9 @@ const fetchTranscriptWithCaching = async (videoId) => {
  
 
 let transcript;
-transcript = await client.getVideoTranscript(videoId);
+transcript = await client.getVideoTranscript(videoId) || await searchApiCaption(videoId);
 
-  if(!transcript){
-  return  transcript = await searchApiCaption(videoId);
   
-  }
    
   transcriptCache.set(videoId, transcript);
 
