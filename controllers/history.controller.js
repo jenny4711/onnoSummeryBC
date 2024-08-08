@@ -57,7 +57,7 @@ historyController.makeSummary = async (req, res) => {
 
   try {
     const { videoId, lang, ask, email } = req.body;
-    
+    console.log(videoId,'videoId!!!!!!!!!')
 
     if (!videoId) {
       return res.status(400).json({ message: 'VideoId is required' });
