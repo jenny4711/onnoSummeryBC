@@ -58,10 +58,11 @@ console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
 };
 
 const translateResult = async (story, lang) => {
-  console.log('story!!!!!!!!!!!!!!!!translateResult!!!!!!!!!!!!');
+ 
   try{
+    const defaultLang=lang || 'English';
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"},safetySettings ,generationConfig);
-    const result = await model.generateContentStream(`You are a ${lang} interpreter.Please translate this ${story} into ${lang} and make it easier to understand.`);
+    const result = await model.generateContentStream(`You are a ${defaultLang} interpreter.Please translate this ${story} into ${lang} and make it easier to understand.`);
     let text = '';
   for await (const chunk of result.stream) {
     const chunkText = chunk.text();
