@@ -3,7 +3,7 @@ const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWit
 const History = require('../model/History');
 const User = require('../model/User');
 const { Client } = require("youtubei");
-const { Innertube }='youtubei.js/web'
+const { Innertube }='youtubei.js'
 const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
 const client = new Client();
