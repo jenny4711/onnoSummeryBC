@@ -14,18 +14,13 @@ const fetchTranscriptWithCaching = async (videoId) => {
   if (transcriptCache.has(videoId)) {
     return transcriptCache.get(videoId);
   }
-  // const youtube = await Innertube.create ( {
-  //   lang : 'en' ,
-  //   location : 'US' ,
-  //   retrieve_player : false ,
-  // } ) ;
-// const info =await youtube.getInfo(videoId);
-// let transcript = await info.getTranscript();
-let transcript = await searchApiCaption(videoId);
-console.log(transcript,'transcript!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ')
-  // let transcript =await client.getVideoTranscript(videoId);
+ 
+
+let transcript;
+transcript = await client.getVideoTranscript(videoId);
+
   if(!transcript){
-  return   transcript = await searchApiCaption(videoId);
+  return  transcript = await searchApiCaption(videoId);
   
   }
    
