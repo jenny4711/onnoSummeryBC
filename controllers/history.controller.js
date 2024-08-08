@@ -8,17 +8,17 @@ const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
 const client = new Client();
 const historyController = {};
-const youtube = await Innertube . create ( {
-  lang : 'en' ,
-  location : 'US' ,
-  retrieve_player : false ,
-} ) ;
+
 
 const fetchTranscriptWithCaching = async (videoId) => {
   if (transcriptCache.has(videoId)) {
     return transcriptCache.get(videoId);
   }
-  
+  const youtube = await Innertube . create ( {
+    lang : 'en' ,
+    location : 'US' ,
+    retrieve_player : false ,
+  } ) ;
 const info =await youtube.getInfo(videoId);
 let transcript = await info.getTranscript();
 console.log(transcript,'transcript!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ')
