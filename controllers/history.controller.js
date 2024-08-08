@@ -14,7 +14,7 @@ const fetchTranscriptWithCaching = async (videoId) => {
   if (transcriptCache.has(videoId)) {
     return transcriptCache.get(videoId);
   }
-  const youtube = await Innertube . create ( {
+  const youtube = await Innertube.create ( {
     lang : 'en' ,
     location : 'US' ,
     retrieve_player : false ,
