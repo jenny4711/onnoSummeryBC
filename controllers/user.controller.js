@@ -34,8 +34,7 @@ userController.createUser = async (req, res) => {
       audience:GOOGLE_RF_CLIENT_ID
     });
     const {email,name}=ticket.getPayload();
-    console.log(ticket.getPayload(),'ticket')
-console.log(email,'email')
+
   const user = await User.findOne({email});
 if(user)throw new Error('You already Have an account')
   const randomPassword = ""+Math.floor(Math.random()*1000000000);

@@ -1,12 +1,12 @@
 
-const { createChatWithGoogle, translateResult ,articleSummaryAi,createSummeryWithGoogle} = require('../utils/ai');
+const { createChatWithGoogle, translateResult } = require('../utils/ai');
 const History = require('../model/History');
 const User = require('../model/User');
-const { Client } = require("youtubei");
-const { Innertube }='youtubei.js'
+
+
 const{searchApiCaption}=require('../utils/captions')
 const transcriptCache = new Map();
-const client = new Client();
+
 const historyController = {};
 
 
@@ -78,8 +78,6 @@ historyController.makeSummary = async (req, res) => {
  
     const transcript= await fetchTranscriptWithCaching(videoId);
  
-  console.log(transcript,'transcript')
-  console.log(videoId,'videoId!!!!!!!!!!!!!!!!!!')
     
     if (!transcript || !Array.isArray(transcript)) {
       return res.status(404).json({ message: "Failed to retrieve transcript for the video." });
@@ -89,19 +87,17 @@ historyController.makeSummary = async (req, res) => {
     
 
     const summaryORG = await createChatWithGoogle(texts.join(' '), ask,lang);
-    console.log(summaryORG,'summaryORG')
     if (!summaryORG) {
       throw new Error("AI couldn't generate a summary.");
     }
 
     const summary = await translateResult(summaryORG, lang);
-    console.log(summary,'summary!!!!!!!!')
+  
     if (!summary) {
       return res.status(200).json({ data: summary, videoId })
     }
   
     const newHistory = await saveSummary({ videoId, summaryORG, lang, ask, summary});
-    console.log(newHistory,'newHistory  ')
     return res.status(200).json({ data: summary,summaryORG, videoId, newHistory });
 
   } catch (error) {

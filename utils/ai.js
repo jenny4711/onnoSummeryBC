@@ -1,6 +1,4 @@
-//Summarize the following into two sentences at the 12th grade level:
-//방법-Summeraize following in a step-by-step format,providing clear instructions on how to complete a task or achieve a goal.
-//스토리형식-Summarize following in a narrative format, capturing the key events, characters, and plot points in a concise and engaging way.
+
 const { GoogleGenerativeAI ,HarmBlockThreshold,HarmCategory} = require("@google/generative-ai");
 const OpenAI = require('openai');
 
@@ -42,7 +40,7 @@ const safetySettings = [
 
 const createChatWithGoogle = async (prompt, ask,lang) => {
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash"},safetySettings ,generationConfig);
-console.log('askCreateChatWithGoogle')
+
   //------------------------------------------------------------------------------------------------
   const result = await model.generateContentStream(`${ask}  ${prompt} `);
 
@@ -53,7 +51,7 @@ console.log('askCreateChatWithGoogle')
     text += chunkText;
   }
                                                                                                                                                            
-console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
+
   return text;
 };
 
@@ -69,30 +67,18 @@ const translateResult = async (story, lang) => {
     console.log(chunkText);
     text += chunkText;
   }
-  console.log('text!!!!!!!!coming!!!!!!!!!!!!!!!!!!!!')
+
   return text;
   }catch(error){
     console.log('Error:', error, 'error=translateResult');
     console.error('Error creating chat completion:', error);
   }
-  // try {
-  //   const response = await openai.chat.completions.create({
-  //     model: 'gpt-3.5-turbo',
-  //     messages: [
-  //       { role: 'system', content: `You are a ${lang} interpreter.` },
-  //       { role: 'user', content: `Please translate this ${story} into ${lang} and make it easier to understand.  ` },
-  //     ],
-  //   });
   
-  //   return response.choices[0].message.content;
-  // } catch (error) {
-  //   console.error('Error creating chat completion:', error);
-  // }
 };
 //----------------------------------------
 
 const articleSummaryAi = async (url, lang) => {
-  console.log(url,'url!!!',lang,'lang!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
@@ -101,7 +87,7 @@ const articleSummaryAi = async (url, lang) => {
         { role: 'user', content: `Please read this article ${url} and summarize the key points in ${lang} in a way that's easy to understand. ` },
       ],
     });
-    console.log('articleSummeryAi!!!!!!!!');
+
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Error creating chat completion:', error);
@@ -122,7 +108,7 @@ const createSummeryWithGoogle = async (url, lang) => {
     text += chunkText;
   }
                                                                                                                                                            
-console.log('createSummeryWithGoogle')
+
   return text;
 };
 
